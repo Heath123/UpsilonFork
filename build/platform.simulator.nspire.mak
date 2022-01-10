@@ -1,5 +1,5 @@
 TOOLCHAIN = nspire-gcc
-EXE = tns
+EXE = elf
 
 EPSILON_TELEMETRY ?= 0
 
