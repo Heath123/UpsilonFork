@@ -9,10 +9,7 @@
 
 #include <ion.h>
 #include <ion/events.h>
-
-extern "C" {
-  #include <n2DLib.h>
-}
+#include <n2DLib.h>
 #include <libndls.h>
 
 //#include "driver/common.h"
@@ -22,11 +19,11 @@ int main(int argc, char * argv[]) {
 
   std::vector<const char *> arguments(argv, argv + argc);
 
-  //const char * language = IonSimulatorGetLanguageCode();
-  //if (language != nullptr) {
-  //  arguments.push_back("--language");
-  //  arguments.push_back(language);
-  //}
+  const char * language = "en";
+  if (language != nullptr) {
+    arguments.push_back("--language");
+    arguments.push_back(language);
+  }
 
   ion_main(arguments.size(), &arguments[0]);
   Ion::Simulator::Main::quit();
@@ -41,7 +38,7 @@ namespace Main {
 static bool sNeedsRefresh = false;
 
 void init() {
-  initBuffering();
+  lcd_init(SCR_320x240_565);
   //Ion::Simulator::CommonDriver::init();
   relayout();
 }
@@ -84,7 +81,7 @@ void refresh() {
 
 void quit() {
   //Ion::Simulator::CommonDriver::deinit();
-  deinitBuffering();
+  lcd_init(SCR_TYPE_INVALID);
 }
 
 }

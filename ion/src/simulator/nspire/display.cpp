@@ -18,9 +18,7 @@ void quit() {
 }
 
 void draw() {
-  pixels = BUFF_BASE_ADDRESS;
-  memcpy(pixels, Framebuffer::address(), sizeof(KDColor)*Ion::Display::Width*Ion::Display::Height);  // Both RGB888
-  updateScreen();
+  lcd_blit((void*)Framebuffer::address(), SCR_320x240_565);
 }
 
 }

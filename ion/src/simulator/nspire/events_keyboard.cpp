@@ -3,9 +3,7 @@
 #include "platform.h"
 //#include "driver/common.h"
 #include <libndls.h>
-extern "C" {
-  #include <n2DLib.h>
-}
+#include <n2DLib.h>
 
 #include <assert.h>
 #include <ion/events.h>

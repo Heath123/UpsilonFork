@@ -1,8 +1,6 @@
 #include <ion/keyboard.h>
 #include <libndls.h>
-extern "C" {
-  #include <n2DLib.h>
-}
+#include <n2DLib.h>
 
 #include "keyboard.h"
 #include "main.h"
