@@ -1,7 +1,7 @@
 #include <ion/timing.h>
 #include "main.h"
 #include <chrono>
-#include <n2DLib.h>
+#include <libndls.h>
 
 static auto start = std::chrono::steady_clock::now();
 
@@ -14,7 +14,7 @@ uint64_t millis() {
 }
 
 void msleep(uint32_t ms) {
-  msleep(ms);
+  ::msleep(ms);
 }
 
 }

@@ -15,25 +15,28 @@ ion_src += $(addprefix ion/src/simulator/nspire/, \
 ion_src += ion/src/shared/collect_registers.cpp
 
 sdl_simu_needs_to_be_removed += $(addprefix ion/src/simulator/shared/, \
-  dummy/display.cpp \
-  dummy/led.cpp \
-  dummy/usb.cpp \
-  dummy/battery.cpp \
+  main.cpp \
   clipboard.cpp \
   display.cpp \
+  framebuffer.cpp \
+  keyboard.cpp \
   events_keyboard.cpp \
   events_platform.cpp \
   events.cpp \
-  framebuffer.cpp \
-  keyboard.cpp \
-  main.cpp \
   layout.cpp \
-  dummy/store_script.cpp \
   actions.cpp \
   window.cpp \
   timing.cpp \
   console.cpp \
 )
+
+#sdl_simu_needs_to_be_removed += $(addprefix ion/src/simulator/shared/dummy/, \
+#  display.cpp \
+#  led.cpp \
+#  usb.cpp \
+#  battery.cpp \
+#  store_script.cpp \
+#)
 
 # Remove the dummy diplay (re-implemented) and the SDL simulator stuff.
 ion_src := $(filter-out $(sdl_simu_needs_to_be_removed),$(ion_src))
