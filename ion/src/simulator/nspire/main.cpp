@@ -38,8 +38,8 @@ namespace Main {
 static bool sNeedsRefresh = false;
 
 void init() {
-  lcd_init(SCR_320x240_565);
   //Ion::Simulator::CommonDriver::init();
+  Ion::Simulator::Display::init();
   relayout();
 }
 
@@ -81,7 +81,7 @@ void refresh() {
 
 void quit() {
   //Ion::Simulator::CommonDriver::deinit();
-  lcd_init(SCR_TYPE_INVALID);
+  Ion::Simulator::Display::quit();
 }
 
 }
