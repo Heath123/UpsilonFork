@@ -15,7 +15,7 @@ void logAfter(int numberOfEvents);
 
 namespace Events {
 
-static constexpr int sharedExternalTextBufferSize = 0;
+static constexpr int sharedExternalTextBufferSize = 2;
 char * sharedExternalTextBuffer();
 
 }

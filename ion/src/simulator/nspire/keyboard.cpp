@@ -57,6 +57,7 @@ constexpr static KeyPair sKeyPairs[] = {
   KeyPair(Key::Minus,            KEY_NSPIRE_MINUS),
   KeyPair(Key::EE,               KEY_NSPIRE_EE),
   KeyPair(Key::Shift,            KEY_NSPIRE_SHIFT),
+  KeyPair(Key::Alpha,            KEY_NSPIRE_CTRL),
   KeyPair(Key::Var,              KEY_NSPIRE_VAR)
 };
 
@@ -64,6 +65,40 @@ constexpr int sNumberOfKeyPairs = sizeof(sKeyPairs)/sizeof(KeyPair);
 
 namespace Ion {
 namespace Keyboard {
+
+static bool getTPArrow(t_key* result) {
+  touchpad_report_t tpReport;
+
+  result->row = result->tpad_row = _KEY_DUMMY_ROW;
+	result->col = result->tpad_col = _KEY_DUMMY_COL;
+	result->tpad_arrow = TPAD_ARROW_NONE;
+  
+  if (!touchpad_scan(&tpReport)) {
+    //result->tpad_arrow = (tpad_arrow_t)tpReport.arrow;
+    // nasty workaround for n2DLib isKey()
+    switch (tpReport.arrow) {
+      case TPAD_ARROW_UP:
+        *result = KEY_NSPIRE_UP;
+        break;
+      case TPAD_ARROW_DOWN:
+        *result = KEY_NSPIRE_DOWN;
+        break;
+      case TPAD_ARROW_LEFT:
+        *result = KEY_NSPIRE_LEFT;
+        break;
+      case TPAD_ARROW_RIGHT:
+        *result = KEY_NSPIRE_RIGHT;
+        break;
+      case TPAD_ARROW_CLICK:
+        *result = KEY_NSPIRE_CLICK;
+        break;
+      default:
+        return 0;
+    }
+    return 1;
+  } else
+      return 0;
+}
 
 State scan() {
   State state;
@@ -73,11 +108,15 @@ State scan() {
   Simulator::Main::refresh();
   
   // Catch the physical keyboard events
-  if (get_key_pressed(&result)) {
+  if (get_key_pressed(&result) || getTPArrow(&result)) {
     for (int i = 0; i < sNumberOfKeyPairs; i++) {
       if (isKey(result, sKeyPairs[i].ndlessKey())) {
         state.setKey(sKeyPairs[i].key());
 	    }
+    }
+  } else {
+    if (on_key_pressed()) {
+      state.setKey(Key::OnOff);
     }
   }
 
