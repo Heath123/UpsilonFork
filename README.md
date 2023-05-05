@@ -236,7 +236,7 @@ git checkout upsilon-dev
 
 ```bash
 make MODEL=n0100 clean
-make MODEL=n0100 EPSILON_I18N=en OMEGA_USERNAME="{Your name, max 15 characters}" -j4
+make MODEL=n0100 EPSILON_I18N=en OMEGA_USERNAME="{Your name, max 15 characters}" -j(nproc)
 ```
 
 Now, run either:
@@ -251,7 +251,7 @@ to directly flash the calculator after pressing simultaneously `reset` and `6` b
 or:
 
 ```bash
-make MODEL=n0100 OMEGA_USERNAME="" binpack -j4
+make MODEL=n0100 OMEGA_USERNAME="" binpack -j(nproc)
 ```
 to make binpack witch you can flash to the calculator from [Ti-planet's webDFU](https://ti-planet.github.io/webdfu_numworks/n0100/). Binpacks are a great way to share a custom build of Upsilon to friends.
   
@@ -263,7 +263,7 @@ to make binpack witch you can flash to the calculator from [Ti-planet's webDFU](
 
 ```bash
 make clean
-make OMEGA_USERNAME="{Your name, max 15 characters}" -j4
+make OMEGA_USERNAME="{Your name, max 15 characters}" -j(nproc)
 ```
 
 Now, run either:
@@ -278,7 +278,7 @@ to directly flash the calculator after pressing simultaneously `reset` and `6` b
 or:
 
 ```bash
-make OMEGA_USERNAME="" binpack -j4
+make OMEGA_USERNAME="" binpack -j(nproc)
 ```
 to make binpack witch you can flash to the calculator from [Ti-planet's webDFU](https://ti-planet.github.io/webdfu_numworks/n0110/). Binpacks are a great way to share a custom build of Upsilon to friends.
 
@@ -301,7 +301,7 @@ Then, compile Upsilon :
 
 ```bash
 make clean
-make PLATFORM=simulator TARGET=web OMEGA_USERNAME="{Your name, max 15 characters}" -j4
+make PLATFORM=simulator TARGET=web OMEGA_USERNAME="{Your name, max 15 characters}" -j$(nproc)
 ```
 
 The simulator is now in `output/release/simulator/web/simulator.zip`
@@ -318,7 +318,7 @@ You need devkitPro and devkitARM installed and in your path (instructions [here]
 git clone --recursive https://github.com/Lauryy06/Upsilon.git
 cd Upsilon
 git checkout --recursive upsilon-dev
-make PLATFORM=simulator TARGET=3ds -j
+make PLATFORM=simulator TARGET=3ds -j(nproc)
 ```
 You can then put epsilon.3dsx on a SD card to run it from the HBC or use 3dslink to launch it over the network:
 
@@ -330,6 +330,8 @@ You can then put epsilon.3dsx on a SD card to run it from the HBC or use 3dslink
 
 <details>
   <summary><b>TI-Nspire Simulator</b></summary>
+
+If you need help, you can join our Discord server here : https://discord.gg/X2TWhh9
 
 First, build and install [Ndless SDK](https://hackspire.org/index.php/C_and_assembly_development_introduction);
 
@@ -346,6 +348,22 @@ Please note that the executable is in [Zehn format](https://hackspire.org//index
 Ndless 3.1 or a later version is required.
 
 Keyboard mapping method is not perfect and is subject to change.
+
+</details>
+
+<details>
+  <summary><b>Casio fx-CG-series Port</b></summary>
+  
+First, install gint and fxsdk along with a cross compiler for the calculator. There are instructions for this (in French, but Google Translate works well enough) [here](https://www.planet-casio.com/Fr/forums/topic16614-last-giteapc-installer-et-mettre-a-jour-automatiquement-des-projets-gitea.html).
+
+Next:
+```bash
+git clone --recursive https://github.com/Omega-Numworks/Omega.git
+cd Omega
+git checkout --recursive omega-dev
+make PLATFORM=simulator TARGET=prizm -j$(nproc)
+```
+Then copy the file at `./output/release/simulator/prizm/epsilon.g3a` to the calculator over USB.
 
 </details>
 
@@ -394,8 +412,9 @@ You can try Epsilon straight from your browser in the [online simulator](https:/
 
 NumWorks is a registered trademark of NumWorks SAS, 24 Rue Godot de Mauroy, 75009 Paris, France.<br>
 Nintendo and Nintendo 3DS are registered trademarks of Nintendo of America Inc, 4600 150th Ave NE, Redmond, WA 98052, USA.<br>
-NumWorks SAS and Nintendo of America Inc aren't associated in any shape or form with this project.<br>
-TI-Nspire is a registered trademark of Texas Instruments, Inc.
+TI-Nspire is a registered trademark of Texas Instruments, Inc.<br>
+Casio is a registered trademark of Casio Computer Co., Ltd. CORPORATION JAPAN 6-2, Hon-machi 1-chome Shibuya-ku, Tokyo JAPAN 151-8543.<br>
+NumWorks SAS, Nintendo of America Inc, Texas Instruments or Casio aren't associated in any shape or form with this project.
 
 * NumWorks Epsilon is released under a [CC BY-NC-SA License](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
 * Omega is released under a [CC BY-NC-SA License](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
